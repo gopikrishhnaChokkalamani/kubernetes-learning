@@ -57,7 +57,7 @@ kubectl delete daemonsets,replicasets,services,deployments,pods,rc,ingress --all
 
 
 
-
+testing
 
 
 curl-test.sh
