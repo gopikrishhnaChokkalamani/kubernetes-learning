@@ -1,0 +1,95 @@
+minikube start
+minikube stop
+minikube delete --all --purge
+
+kubectl run nginx --image=nginx
+kubectl run nginx --image=nginx --dry-run -o yaml --> outputs the configuration in a yaml format
+kubectl run nginx --image=nginx --dry-run=client -o yaml --> above is deprecated
+kubectl run nginx --image=nginx --dry-run=client -o yaml > nginx-pod.yml -> outputs it into a yaml file
+kubectl get pods
+kubectl get nodes
+kubectl get pod pod_name
+kubectl describe pod pod_name
+kubectl get pods -o wide -> shows node info, ip, etc
+kubectl delete -f pod.yml
+
+kubectl create -f pod-def.yml
+kuebctl apply -f pod-def.yml -> to update a pod, create cannot update any changes to the yml
+kubectl delete pod pod_name
+
+kubectl get replicationcontroller
+kubectl get replicationcontroller -o wide
+
+kubectl describe replicaset replicaset-name
+kubectl replace -f replicaset-def.yml
+kubectl get replicaset
+kubectl delete replicaset replicaset-name
+kubectl apply -f replicaset-file.yml
+kubectl edit replicaset replicaset-name -> to the yaml def
+kubectl scale --replicas=6 replicaset myapp-replicaset
+kubectl explain replicaset -> defintion of the replicaset
+kubectl get rs --> shortcut for replicaset
+
+kubectl get all
+kubectl get deployments
+kubectl create deployment dpeloyment-name --image=image-name --replicas=3
+kubectl edit deployment deployment-name
+kubectl edit deployment deployment-name --record
+
+kubectl rollout  status deployment/deployment-name
+kubectl rollout  history deployment/deployment-name
+
+kubectl rollout undo deployment/deployment-name
+kubectl set image deployment/deployment-name nginx-container=nginx:1.19.1
+kubectl create -f deployment.yaml --record=true
+
+kubectl describe service kubernetes
+
+kubectl get pods,svc
+
+kubectl delete --all pods --namespace=foo
+kubectl delete --all deployments --namespace=foo
+kubectl delete --all namespaces
+kubectl delete deployments --all --namespace=default
+kubectl delete daemonsets,replicasets,services,deployments,pods,rc,ingress --all --all-namespaces
+
+
+
+
+
+
+
+
+curl-test.sh
+
+for i in {1..35}; do
+   kubectl exec --namespace=kube-public curl -- sh -c 'test=`wget -qO- -T 2  http://webapp-service.default.svc.cluster.local:8080/info 2>&1` && echo "$test OK" || echo "Failed"';
+   echo ""
+done
+
+apiVersion: v1 
+kind: Pod
+metadata:
+  name: curl
+  namespace: kube-public 
+spec:
+  containers:
+  - image: byrnedo/alpine-curl:latest
+    name: alpine-curl
+    command: ["sleep", "5000"]
+
+
+containers:
+  - image: kodekloud/webapp-color:v2
+    imagePullPolicy: IfNotPresent
+    name: simple-webapp
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-9k8mz
+      readOnly: true

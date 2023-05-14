@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi-container-pod  # this is the name of the pod, and you will see when running kubectl get pods
+  labels:
+    app: multi-container-pod-label
+    tier: frontend
+    env: dev
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+      resources:
+        limits:
+          memory: 512Mi
+          cpu: "1"
+      env:
+        - name : MY_RANDOM_ENV_VARIABLE
+          value: myrandomenvvariable-123456
+    - name: redis-container
+      image: redis
+      resources:
+        limits:
+          memory: 512Mi
+          cpu: "1"

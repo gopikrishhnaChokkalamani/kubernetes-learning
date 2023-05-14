@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: single-container-pod  # this is the name of the pod, and you will see when running kubectl get pods
+  labels:
+    app: single-container-label
+    tier: frontend
+    env: dev
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+      env:
+        - name : MY_RANDOM_ENV_VARIABLE
+          value: myrandomenvvariable-123456
+      resources:
+        limits:
+          memory: 512Mi
+          cpu: "1"

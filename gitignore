@@ -1,0 +1,19 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+./*.iml
+
+*.iml
+
+aws.xml
+
+.settings/
+.classpath
+.project
+
+misc.xml
+modules.xml
+vcs.xml
+
+*.xml
