@@ -54,7 +54,7 @@ kubectl delete deployments --all --namespace=default
 kubectl delete daemonsets,replicasets,services,deployments,pods,rc,ingress --all --all-namespaces
 
 
-
+aws eks update-kubeconfig --region us-east-1 --name my-eks-cluster-console
 
 
 testing

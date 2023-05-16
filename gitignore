@@ -17,3 +17,5 @@ modules.xml
 vcs.xml
 
 *.xml
+
+.idea

@@ -7,11 +7,12 @@ metadata:
     name: result-service
     app: demo-voting-app
 spec:
-  type: NodePort
+#  type: NodePort
+  type: LoadBalancer #this will create a classic load balancer in aws
   ports:
     - port: 80
       targetPort: 80
-      nodePort: 30005
+#      nodePort: 30005
   selector:
     name: result-app-pod
     app: demo-voting-app
